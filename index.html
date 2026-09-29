@@ -585,6 +585,17 @@
     document.getElementById("ticketMessage").value = "";
     alert("Your support request has been submitted.");
   }
+</script><script>
+  const SUPABASE_URL = "https://zpvrduglglumsagqhllp.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_lIyg8sf9pxG9mtuLw3IZwA_TPlGevpi";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  console.log("Supabase connected");
 </script>
 </body>
 </html>
