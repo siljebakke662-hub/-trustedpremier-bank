@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustedPremier Bank</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: #f4f7f8;
+      color: #17252a;
+    }
+    button {
+      cursor: pointer;
+    }
+    /* LANDING PAGE */
+    .landing {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #063b3f, #0b6865);
+      color: white;
+      padding: 25px;
+    }
+    .topbar {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+    }
+    .login-btn {
+      background: white;
+      color: #075957;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .hero {
+      max-width: 900px;
+      margin: 120px auto;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: .9;
+    }
+    .hero button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #075957;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .demo-label {
+      margin-top: 35px;
+      font-size: 13px;
+      opacity: .75;
+    }
+    /* LOGIN */
+    .login-page {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #f4f7f8;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    .login-box h2 {
+      margin-bottom: 10px;
+    }
+    .login-box p {
+      color: #667;
+      margin-bottom: 25px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd5d7;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+    .primary {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #075957;
+      color: white;
+      font-weight: bold;
+    }
+    .back {
+      margin-top: 15px;
+      border: none;
+      background: transparent;
+      color: #075957;
+    }
+    /* DASHBOARD */
+    .dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 240px;
+      height: 100vh;
+      background: #063b3f;
+      color: white;
+      padding: 25px 15px;
+    }
+    .sidebar .logo {
+      padding: 10px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: 13px;
+      margin-bottom: 6px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: white;
+    }
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: rgba(255,255,255,.12);
+    }
+    .logout {
+      position: absolute;
+      bottom: 25px;
+      left: 15px;
+      width: calc(100% - 30px);
+      padding: 12px;
+      background: #b84a4a;
+      border: none;
+      border-radius: 7px;
+      color: white;
+    }
+    .main {
+      margin-left: 240px;
+      padding: 30px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .header small {
+      color: #667;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.05);
+    }
+    .balance-card {
+      background: #075957;
+      color: white;
+    }
+    .balance {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+    .section {
+      margin-top: 25px;
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.05);
+    }
+    .section h3 {
+      margin-bottom: 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 14px 8px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      color: #667;
+      font-size: 13px;
+    }
+    .support-form {
+      max-width: 700px;
+    }
+    .ticket {
+      border: 1px solid #e1e5e6;
+      padding: 16px;
+      border-radius: 9px;
+      margin-top: 12px;
+    }
+    .status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 5px 9px;
+      border-radius: 15px;
+      font-size: 12px;
+      background: #e8f5f3;
+      color: #075957;
+    }
+    /* MOBILE */
+    @media(max-width: 800px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+      .sidebar .logout {
+        position: static;
+        width: 100%;
+        margin-top: 15px;
+      }
+      .main {
+        margin-left: 0;
+        padding: 18px;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .header {
+        display: block;
+      }
+      .header small {
+        display: block;
+        margin-top: 6px;
+      }
+      table {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- LANDING PAGE -->
+<div class="landing" id="landing">
+  <div class="topbar">
+    <div class="logo">TrustedPremier Bank</div>
+    <button class="login-btn" onclick="showLogin()">Login</button>
+  </div>
+  <div class="hero">
+    <h1>Banking Made Simple</h1>
+    <p>
+      Welcome to TrustedPremier Bank.
+      Manage your accounts, review transactions,
+      and contact customer support from one secure dashboard.
+    </p>
+    <button onclick="showLogin()">Access Demo Banking</button>
+    <div class="demo-label">
+      DEMO / PROTOTYPE — NO REAL MONEY OR BANKING SERVICES
+    </div>
+  </div>
+</div>
+<!-- LOGIN -->
+<div class="login-page" id="loginPage">
+  <div class="login-box">
+    <h2>Welcome Back</h2>
+    <p>Sign in to your TrustedPremier Bank demo account.</p>
+    <input
+      type="email"
+      id="email"
+      placeholder="Email address"
+    >
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+    <button class="primary" onclick="login()">
+      Sign In
+    </button>
+    <button class="back" onclick="showLanding()">
+      ← Back
+    </button>
+  </div>
+</div>
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <aside class="sidebar">
+    <div class="logo">
+      TrustedPremier
+    </div>
+    <button class="nav-btn active" onclick="showSection('overview')">
+      🏠 Dashboard
+    </button>
+    <button class="nav-btn" onclick="showSection('accounts')">
+      💳 Accounts
+    </button>
+    <button class="nav-btn" onclick="showSection('transactions')">
+      📄 Transactions
+    </button>
+    <button class="nav-btn" onclick="showSection('support')">
+      💬 Support Center
+    </button>
+    <button class="nav-btn" onclick="showSection('profile')">
+      👤 Profile
+    </button>
+    <button class="logout" onclick="logout()">
+      Sign Out
+    </button>
+  </aside>
+  <main class="main">
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <div class="header">
+        <div>
+          <h1>Good day, Demo Customer</h1>
+          <small>Welcome to your banking dashboard.</small>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card balance-card">
+          <small>Total Balance</small>
+          <div class="balance">$12,450.00</div>
+        </div>
+        <div class="card">
+          <small>Checking Account</small>
+          <h2>$8,250.00</h2>
+          <small>**** 4821</small>
+        </div>
+        <div class="card">
+          <small>Savings Account</small>
+          <h2>$4,200.00</h2>
+          <small>**** 7319</small>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Recent Transactions</h3>
+        <table>
+          <tr>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
+          <tr>
+            <td>Demo Deposit</td>
+            <td>Today</td>
+            <td>+$500.00</td>
+          </tr>
+          <tr>
+            <td>Online Payment</td>
+            <td>Yesterday</td>
+            <td>-$85.00</td>
+          </tr>
+          <tr>
+            <td>Demo Transfer</td>
+            <td>Sep 25</td>
+            <td>-$200.00</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- ACCOUNTS -->
+    <section id="accounts" style="display:none">
+      <h1>My Accounts</h1>
+      <div class="cards" style="margin-top:20px">
+        <div class="card">
+          <small>Checking</small>
+          <h2>$8,250.00</h2>
+          <p>Account ending 4821</p>
+        </div>
+        <div class="card">
+          <small>Savings</small>
+          <h2>$4,200.00</h2>
+          <p>Account ending 7319</p>
+        </div>
+      </div>
+    </section>
+    <!-- TRANSACTIONS -->
+    <section id="transactions" style="display:none">
+      <h1>Transactions</h1>
+      <div class="section">
+        <table>
+          <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Amount</th>
+          </tr>
+          <tr>
+            <td>Demo Deposit</td>
+            <td>Deposit</td>
+            <td>Completed</td>
+            <td>+$500.00</td>
+          </tr>
+          <tr>
+            <td>Online Payment</td>
+            <td>Payment</td>
+            <td>Completed</td>
+            <td>-$85.00</td>
+          </tr>
+          <tr>
+            <td>Demo Transfer</td>
+            <td>Transfer</td>
+            <td>Completed</td>
+            <td>-$200.00</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- SUPPORT CENTER -->
+    <section id="support" style="display:none">
+      <h1>Support Center</h1>
+      <div class="section">
+        <h3>Contact Support</h3>
+        <p style="margin-bottom:20px;color:#667">
+          Have a question or complaint? Create a support ticket.
+        </p>
+        <div class="support-form">
+          <input
+            id="ticketSubject"
+            placeholder="Subject"
+          >
+          <select id="ticketCategory">
+            <option value="general">
+              General Question
+            </option>
+            <option value="account">
+              Account
+            </option>
+            <option value="transaction">
+              Transaction
+            </option>
+            <option value="transfer">
+              Transfer
+            </option>
+            <option value="card">
+              Card
+            </option>
+            <option value="technical">
+              Technical Problem
+            </option>
+            <option value="complaint">
+              Make a Complaint
+            </option>
+          </select>
+          <textarea
+            id="ticketMessage"
+            rows="6"
+            placeholder="Describe your question or complaint..."
+          ></textarea>
+          <button class="primary" onclick="submitTicket()">
+            Submit Support Request
+          </button>
+        </div>
+      </div>
+      <div class="section">
+        <h3>My Support Tickets</h3>
+        <div id="tickets">
+          <div class="ticket">
+            <strong>Example support request</strong>
+            <p style="margin-top:8px">
+              This is an example ticket for the prototype.
+            </p>
+            <span class="status">
+              Open
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- PROFILE -->
+    <section id="profile" style="display:none">
+      <h1>My Profile</h1>
+      <div class="section">
+        <input value="Demo Customer" placeholder="Full name">
+        <input value="demo@example.com" placeholder="Email">
+        <input value="+1 000 000 0000" placeholder="Phone">
+        <button class="primary">
+          Save Profile
+        </button>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  function showLogin() {
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("loginPage").style.display = "flex";
+  }
+  function showLanding() {
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("landing").style.display = "block";
+  }
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
+    }
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+  }
+  function logout() {
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("landing").style.display = "block";
+  }
+  function showSection(sectionName) {
+    const sections = [
+      "overview",
+      "accounts",
+      "transactions",
+      "support",
+      "profile"
+    ];
+    sections.forEach(function(section) {
+      document.getElementById(section).style.display =
+        section === sectionName ? "block" : "none";
+    });
+    window.scrollTo(0, 0);
+  }
+  function submitTicket() {
+    const subject =
+      document.getElementById("ticketSubject").value;
+    const category =
+      document.getElementById("ticketCategory").value;
+    const message =
+      document.getElementById("ticketMessage").value;
+    if (!subject || !message) {
+      alert("Please enter a subject and describe your request.");
+      return;
+    }
+    const ticket = document.createElement("div");
+    ticket.className = "ticket";
+    ticket.innerHTML = `
+      <strong>${subject}</strong>
+      <p style="margin-top:8px">
+        ${message}
+      </p>
+      <small>
+        Category: ${category}
+      </small>
+      <br>
+      <span class="status">
+        Open
+      </span>
+    `;
+    document.getElementById("tickets")
+      .prepend(ticket);
+    document.getElementById("ticketSubject").value = "";
+    document.getElementById("ticketMessage").value = "";
+    alert("Your support request has been submitted.");
+  }
+</script>
+</body>
+</html>
